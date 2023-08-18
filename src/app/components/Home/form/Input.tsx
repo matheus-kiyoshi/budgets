@@ -27,6 +27,7 @@ export default function Input({
         placeholder={placeholder}
         onChange={handleOnChange}
         value={value}
+        required
         className="p-3 rounded-md border-none bg-slate-100 placeholder:text-gray-500"
       />
     </div>

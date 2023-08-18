@@ -29,8 +29,11 @@ export default function Select({
         className="p-3 rounded-md bg-slate-100"
         onChange={handleOnChange}
         value={value || ''}
+        required
       >
-        <option>Selecione uma opção</option>
+        <option value={''} disabled>
+          Selecione uma opção
+        </option>
         {options.map((option) => (
           <option value={option.id} key={option.id}>
             {option.name}

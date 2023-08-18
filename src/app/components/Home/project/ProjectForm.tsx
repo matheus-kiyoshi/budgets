@@ -1,45 +1,33 @@
 'use client'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
 import Input from '../form/Input'
 import Select from '../form/Select'
 import SubmitButton from '../form/SubmitButton'
-
-export type Project = {
-  id: string
-  name: string
-  budget: number
-  category: {
-    id: string
-    name: string
-  }
-  cost: number
-  services: object[]
-}
+import { Project, categories } from './ProjectType'
 
 type ProjectFormProps = {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   BtnText: string
-  projectData?: Project
 }
 
-export default function ProjectForm({
-  handleSubmit,
-  BtnText,
-  projectData,
-}: ProjectFormProps) {
-  const [categories, setCategories] = useState([])
-  const [project, setProject] = useState<Project>(projectData)
-
-  useEffect(() => {
-    axios('http://localhost:3333/categories').then((response) => {
-      setCategories(response.data)
-    })
-  }, [])
+export default function ProjectForm({ BtnText }: ProjectFormProps) {
+  const [project, setProject] = useState<Project>({
+    name: '',
+    budget: 0,
+    category: {
+      id: '',
+      name: '',
+    },
+    cost: 0,
+    services: [],
+  })
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    handleSubmit(project)
+    const projects = JSON.parse(localStorage.getItem('projects') || '[]')
+    projects.push(project)
+
+    localStorage.setItem('projects', JSON.stringify(projects))
+    console.log(localStorage.getItem('projects'))
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
