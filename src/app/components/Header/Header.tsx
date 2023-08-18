@@ -41,13 +41,13 @@ export default function Header() {
             <Link href="/">Home</Link>
           </li>
           <li className="text-white hover:text-yellow-400">
-            <Link href="/projects">Projects</Link>
+            <Link href="/projects">Projetos</Link>
           </li>
           <li className="text-white hover:text-yellow-400">
-            <Link href="/company">Company</Link>
+            <Link href="/company">Empresa</Link>
           </li>
           <li className="text-white hover:text-yellow-400">
-            <Link href="/contact">Contact</Link>
+            <Link href="/contact">Contato</Link>
           </li>
         </ul>
       </nav>

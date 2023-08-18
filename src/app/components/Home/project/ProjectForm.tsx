@@ -12,6 +12,7 @@ type ProjectFormProps = {
 export default function ProjectForm({ BtnText }: ProjectFormProps) {
   const [project, setProject] = useState<Project>({
     name: '',
+    id: 0,
     budget: 0,
     category: {
       id: '',
@@ -24,6 +25,8 @@ export default function ProjectForm({ BtnText }: ProjectFormProps) {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const projects = JSON.parse(localStorage.getItem('projects') || '[]')
+    const id = projects.length > 0 ? projects[projects.length - 1].id + 1 : 1
+    project.id = id
     projects.push(project)
 
     localStorage.setItem('projects', JSON.stringify(projects))

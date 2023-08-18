@@ -5,6 +5,7 @@ export type Category = {
 
 export type Project = {
   name: string
+  id: number
   budget: number
   category: Category
   cost: number
