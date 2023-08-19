@@ -2,25 +2,29 @@
 import LinkButton from '../components/Home/LinkButton'
 import ProjectCard from '../components/Home/project/ProjectCard'
 import { Project } from '../components/Home/project/ProjectType'
+import { useRouter } from 'next/navigation'
+import '@/app/globals.css'
 
 export default function Projects() {
   const projects: Project[] = JSON.parse(
     localStorage.getItem('projects') || '[]',
   )
+  const router = useRouter()
 
   const HandleRemoveProject = (id: number) => {
     const projects = JSON.parse(localStorage.getItem('projects') || '[]')
     const newProjects = projects.filter((project: Project) => project.id !== id)
     localStorage.setItem('projects', JSON.stringify(newProjects))
+    router.refresh()
   }
 
   return (
-    <div className="p-8 w-full min-h-[75vh]">
-      <div className="flex justify-between mb-8">
+    <main className="grid-area-main flex flex-col gap-8 mt-10 justify-start items-center">
+      <div className="w-4/6 flex justify-between items-center">
         <h1 className="text-5xl">Meus Projetos</h1>
         <LinkButton pageDirectory="/newproject" text="Criar Projeto" />
       </div>
-      <div className="w-full h-[75%] grid grid-cols-4 gap-5">
+      <div className="w-4/6 flex flex-wrap">
         {projects.length > 0 &&
           projects.map((project) => (
             <ProjectCard
@@ -35,6 +39,6 @@ export default function Projects() {
 
         {projects.length === 0 && <p>Não há projetos cadastrados!</p>}
       </div>
-    </div>
+    </main>
   )
 }

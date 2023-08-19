@@ -4,6 +4,7 @@ import Input from '../form/Input'
 import Select from '../form/Select'
 import SubmitButton from '../form/SubmitButton'
 import { Project, categories } from './ProjectType'
+import { useRouter } from 'next/navigation'
 
 type ProjectFormProps = {
   BtnText: string
@@ -21,6 +22,7 @@ export default function ProjectForm({ BtnText }: ProjectFormProps) {
     cost: 0,
     services: [],
   })
+  const router = useRouter()
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -30,7 +32,7 @@ export default function ProjectForm({ BtnText }: ProjectFormProps) {
     projects.push(project)
 
     localStorage.setItem('projects', JSON.stringify(projects))
-    console.log(localStorage.getItem('projects'))
+    router.push('/projects')
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
