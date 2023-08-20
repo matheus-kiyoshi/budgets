@@ -7,32 +7,58 @@ import { Project, categories } from './ProjectType'
 import { useRouter } from 'next/navigation'
 
 type ProjectFormProps = {
+  submitType: string
   BtnText: string
+  projectData?: Project
 }
 
-export default function ProjectForm({ BtnText }: ProjectFormProps) {
-  const [project, setProject] = useState<Project>({
-    name: '',
-    id: 0,
-    budget: 0,
-    category: {
-      id: '',
+export default function ProjectForm({
+  BtnText,
+  projectData,
+  submitType,
+}: ProjectFormProps) {
+  const [project, setProject] = useState<Project>(
+    projectData || {
       name: '',
+      id: 0,
+      budget: 0,
+      category: {
+        id: '',
+        name: '',
+      },
+      cost: 0,
+      services: [],
     },
-    cost: 0,
-    services: [],
-  })
+  )
   const router = useRouter()
+
+  function editPost(projectData: Project) {
+    if (project.budget < project.cost) {
+      return false
+    }
+    const projects = JSON.parse(localStorage.getItem('projects') || '[]')
+    const selectedProject = projects.find(
+      (project: Project) => project.id === projectData.id,
+    )
+    projects.splice(projects.indexOf(selectedProject), 1, projectData)
+    localStorage.setItem('projects', JSON.stringify(projects))
+  }
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const projects = JSON.parse(localStorage.getItem('projects') || '[]')
-    const id = projects.length > 0 ? projects[projects.length - 1].id + 1 : 1
-    project.id = id
-    projects.push(project)
+    if (submitType === 'edit' && projectData) {
+      editPost(projectData)
+    }
 
-    localStorage.setItem('projects', JSON.stringify(projects))
-    router.push('/projects')
+    if (submitType === 'new') {
+      const projects = JSON.parse(localStorage.getItem('projects') || '[]')
+      const id = projects.length > 0 ? projects[projects.length - 1].id + 1 : 1
+      project.id = id
+      projects.push(project)
+
+      localStorage.setItem('projects', JSON.stringify(projects))
+      router.push('/projects')
+    }
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

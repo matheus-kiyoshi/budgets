@@ -4,7 +4,7 @@ type InputProps = {
   name: string
   placeholder: string
   handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  value: string
+  value?: string
 }
 
 export default function Input({

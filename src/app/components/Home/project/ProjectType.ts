@@ -3,13 +3,20 @@ export type Category = {
   name: string
 }
 
+export type Service = {
+  id: number
+  name: string
+  cost: number
+  description: string
+}
+
 export type Project = {
   name: string
   id: number
   budget: number
   category: Category
   cost: number
-  services: object[]
+  services: Service[]
 }
 
 export const categories: Category[] = [
