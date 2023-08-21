@@ -19,43 +19,72 @@ export default function Project({ params }: { params: { slug: string } }) {
       (project: Project) => project.id === Number(params.slug),
     )
     setProject(selectedProject as Project)
+    setServices(selectedProject?.services || [])
   }, [params.slug])
 
-  function createService(project: Project) {
-    const lastService = project.services[project.services.length - 1]
-
+  function createService(projectData: Project) {
+    const id =
+      projectData.services.length > 0
+        ? projectData.services[projectData.services.length - 1].id + 1
+        : 1
+    projectData.services[projectData.services.length - 1].id = id
+    const lastService = projectData.services[projectData.services.length - 1]
     const lastServiceCost = lastService.cost
-    const newCost = project.cost + lastServiceCost
+    const newCost = Number(projectData.cost) + Number(lastServiceCost)
 
-    // maximum value validation
     if (newCost > project.budget) {
-      project.services.pop()
-      return false
+      const updatedServices = [...projectData.services]
+      updatedServices.pop()
+      projectData = { ...projectData, services: updatedServices }
+    } else {
+      projectData = { ...projectData, cost: newCost }
     }
 
-    // add service cost to project total cost
-    project.cost = newCost
+    // update projects
+    setProject({ ...projectData })
 
-    // update project
-    setProject(project)
     const projects = JSON.parse(localStorage.getItem('projects') || '[]')
-    projects.splice(projects.indexOf(project), 1, project)
+    const projectIndex = projects.findIndex(
+      (p: Project) => p.id === projectData.id,
+    )
+
+    if (projectIndex !== -1) {
+      projects[projectIndex] = projectData
+      localStorage.setItem('projects', JSON.stringify(projects))
+    }
+
+    console.log(project)
+    console.log(projects)
+
     router.refresh()
   }
 
   function removeService(id: number, cost: number) {
-    const servicesUpdated = project.services.filter(
+    console.log(project)
+    const updatedServices = project.services.filter(
       (service: Service) => service.id !== id,
     )
-    const projectUpdated = project
+    const updatedCost = project.cost - cost
 
-    projectUpdated.services = servicesUpdated
-    projectUpdated.cost = projectUpdated.cost - cost
+    const updatedProject: Project = {
+      ...project,
+      services: updatedServices,
+      cost: updatedCost,
+    }
+    setProject(updatedProject)
 
+    // update projects
     const projects = JSON.parse(localStorage.getItem('projects') || '[]')
-    projects.splice(projects.indexOf(project), 1, projectUpdated)
-    setProject(projectUpdated)
-    setServices(servicesUpdated)
+    const projectIndex = projects.findIndex(
+      (p: Project) => p.id === updatedProject.id,
+    )
+
+    if (projectIndex !== -1) {
+      projects[projectIndex] = updatedProject
+      localStorage.setItem('projects', JSON.stringify(projects))
+    }
+    setServices(updatedServices)
+
     router.refresh()
   }
 

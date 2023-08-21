@@ -40,8 +40,10 @@ export default function ProjectForm({
     const selectedProject = projects.find(
       (project: Project) => project.id === projectData.id,
     )
-    projects.splice(projects.indexOf(selectedProject), 1, projectData)
+
+    projects.splice(projects.indexOf(selectedProject), 1, project)
     localStorage.setItem('projects', JSON.stringify(projects))
+    router.refresh()
   }
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {

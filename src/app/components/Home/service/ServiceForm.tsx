@@ -14,7 +14,12 @@ export default function ServiceForm({
   BtnText,
   projectData,
 }: ServiceFormProps) {
-  const [service, setService] = useState<Service>({} as Service)
+  const [service, setService] = useState<Service>({
+    id: 0,
+    name: '',
+    cost: 0,
+    description: '',
+  })
 
   function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
