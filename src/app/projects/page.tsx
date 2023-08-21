@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation'
 import '@/app/globals.css'
 
 export default function Projects() {
-  const projects: Project[] = JSON.parse(
-    localStorage.getItem('projects') || '[]',
-  )
+  const projects: Project[] =
+    typeof window !== 'undefined'
+      ? JSON.parse(localStorage.getItem('projects') || '[]')
+      : []
   const router = useRouter()
 
   const HandleRemoveProject = (id: number) => {
