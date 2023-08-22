@@ -26,9 +26,7 @@ export default function ServiceCard({
       <p className="text-gray-500 mb-4">
         <strong className="font-bold">Custo total:</strong> R${cost}
       </p>
-      <p className="text-gray-500 mb-4 flex items-center">
-        <p>{description}</p>
-      </p>
+      <p className="text-gray-500 mb-4 flex items-center">{description}</p>
       <div className="mt-5 flex items-center">
         <button
           onClick={remove}

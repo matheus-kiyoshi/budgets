@@ -46,10 +46,10 @@ export default function ProjectCard({
         <strong className="font-bold">Orçamento:</strong> R${budget}
       </p>
       <p className="text-gray-500 mb-4 flex items-center">
-        <strong
+        <span
           className={`font-bold block w-3 h-3 rounded-full mr-1 ${bgcolor}`}
           id={`${category}`}
-        ></strong>{' '}
+        ></span>{' '}
         {category}
       </p>
       <div className="mt-5 flex items-center justify-between">

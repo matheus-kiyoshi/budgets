@@ -1,4 +1,5 @@
 'use client'
+import Message from '@/app/components/Home/Message'
 import ProjectForm from '@/app/components/Home/project/ProjectForm'
 import { Project, Service } from '@/app/components/Home/project/ProjectType'
 import ServiceCard from '@/app/components/Home/service/ServiceCard'
@@ -11,6 +12,8 @@ export default function Project({ params }: { params: { slug: string } }) {
   const [services, setServices] = useState<Service[]>([])
   const [showProjectForm, setShowProjectForm] = useState(false)
   const [showServiceForm, setShowServiceForm] = useState(false)
+  const [message, setMessage] = useState('')
+  const [type, setType] = useState('')
   const router = useRouter()
 
   useEffect(() => {
@@ -53,6 +56,9 @@ export default function Project({ params }: { params: { slug: string } }) {
       localStorage.setItem('projects', JSON.stringify(projects))
     }
 
+    setMessage('Serviço adicionado com sucesso!')
+    setType('success')
+
     router.refresh()
   }
 
@@ -82,6 +88,9 @@ export default function Project({ params }: { params: { slug: string } }) {
     }
     setServices(updatedServices)
 
+    setMessage('Serviço removido com sucesso!')
+    setType('success')
+
     router.refresh()
   }
 
@@ -96,6 +105,7 @@ export default function Project({ params }: { params: { slug: string } }) {
   return (
     <main className="grid-area-main">
       <div className="w-5/6 flex flex-col justify-start mx-auto my-0 flex-wrap p-8">
+        {message && <Message type={type} msg={message} />}
         <div className="border-b-zinc-800 border-b mb-5 pb-5 flex justify-between flex-wrap">
           <h1 className="mb-2 bg-zinc-800 text-yellow-400 p-2 text-4xl">
             Projeto: {project.name}
