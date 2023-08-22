@@ -6,8 +6,8 @@ import Link from 'next/link'
 
 export default function Contact() {
   return (
-    <main className="grid-area-main m-14 flex flex-col justify-start items-start gap-16">
-      <h1 className="text-7xl">Contact</h1>
+    <main className="grid-area-main m-3 sm:m-14 flex flex-col justify-start items-start gap-16">
+      <h1 className="text-2xl sm:text-4xl lg:text-7xl">Contact</h1>
       <div className="flex flex-col justify-evenly items-start p-8 gap-8 w-full">
         <div className="flex justify-between items-center gap-2">
           <TfiEmail className="h-8 w-8 lg:w-10 lg:h-10" />

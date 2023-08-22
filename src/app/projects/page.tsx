@@ -20,12 +20,12 @@ export default function Projects() {
   }
 
   return (
-    <main className="grid-area-main flex flex-col gap-8 mt-10 justify-start items-center">
-      <div className="w-4/6 flex justify-between items-center">
+    <main className="grid-area-main flex flex-col gap-8 my-10 justify-start items-center">
+      <div className="w-5/6 flex justify-between items-center">
         <h1 className="text-5xl">Meus Projetos</h1>
         <LinkButton pageDirectory="/newproject" text="Criar Projeto" />
       </div>
-      <div className="w-4/6 flex flex-wrap">
+      <div className="w-5/6 flex flex-wrap">
         {projects.length > 0 &&
           projects.map((project) => (
             <ProjectCard

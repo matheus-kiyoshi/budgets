@@ -53,9 +53,6 @@ export default function Project({ params }: { params: { slug: string } }) {
       localStorage.setItem('projects', JSON.stringify(projects))
     }
 
-    console.log(project)
-    console.log(projects)
-
     router.refresh()
   }
 
@@ -97,8 +94,8 @@ export default function Project({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="min-h-[75vh]">
-      <div className="w-[1200px] flex flex-col justify-start mx-auto my-0 flex-wrap p-8">
+    <main className="grid-area-main">
+      <div className="w-5/6 flex flex-col justify-start mx-auto my-0 flex-wrap p-8">
         <div className="border-b-zinc-800 border-b mb-5 pb-5 flex justify-between flex-wrap">
           <h1 className="mb-2 bg-zinc-800 text-yellow-400 p-2 text-4xl">
             Projeto: {project.name}
@@ -134,7 +131,7 @@ export default function Project({ params }: { params: { slug: string } }) {
             </div>
           )}
         </div>
-        <div className="mb-5 pb-5 flex flex-col flex-wrap w-[1200px]">
+        <div className="mb-5 pb-5 flex flex-col flex-wrap w-full">
           <div className="flex justify-between flex-wrap w-full">
             <h2 className="mb-2 p-2 text-4xl">Adicione um serviço:</h2>
             <button
@@ -154,7 +151,7 @@ export default function Project({ params }: { params: { slug: string } }) {
             )}
           </div>
           <h2 className="mb-2 p-2 text-4xl">Serviços</h2>
-          <div className="mt-4 pb-8 pt-4 flex flex-row flex-wrap">
+          <div className="mt-4 pb-8 pt-4 flex flex-row gap-4 lg:gap-2 flex-wrap">
             {services.length > 0 &&
               services.map((service) => (
                 <ServiceCard
@@ -170,6 +167,6 @@ export default function Project({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

@@ -37,6 +37,7 @@ export default function ServiceForm({
         type="text"
         text="Nome do Serviço"
         name="name"
+        maxLength={15}
         placeholder="Insira o nome do serviço"
         handleOnChange={handleChange}
       />

@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} w-screen h-screen grid grid-layout-template gap-2`}
+        className={`${roboto.className} w-screen h-screen grid grid-layout-template gap-2 overflow-x-hidden`}
       >
         <Header />
         {children}
